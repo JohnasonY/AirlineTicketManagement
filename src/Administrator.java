@@ -1,20 +1,15 @@
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.Scanner;
 
 public class Administrator extends User{
-
-    String AuthorizedCode = "CSC330";
+    private final String AuthorizedCode = "CSC330";
     private String RealName;
 
     public Administrator(){
 
     }
-    public Administrator(String userName, String password, String RealName){
-        super(userName, password);
-        this.RealName = RealName;
+    public Administrator(String userName){
+        super(userName);
     }
 
 
@@ -26,37 +21,29 @@ public class Administrator extends User{
         Scanner sc = new Scanner(System.in);
         String userCode = sc.nextLine();
         if(userCode.equals(AuthorizedCode)) {
-            String username;
-            String password;
-            String realname;
 
-            System.out.print("Username: ");
-            username = sc.nextLine();
+                String username;
+                String password;
+                String realname;
 
-            System.out.print("Password: ");
-            password = sc.nextLine();
+                System.out.print("Username: ");
+                username = sc.nextLine();
 
-            System.out.print("Name: ");
-            realname = sc.nextLine();
+                System.out.print("Password: ");
+                password = sc.nextLine();
 
-            String AdminFile = "AdminInfo.txt";
-            PrintWriter outFS = null;
-            try {
-                FileOutputStream AdminFileStream = new FileOutputStream("AdminInfo.txt");
-                outFS = new PrintWriter(AdminFileStream);
-                outFS.println(username);
-                outFS.println(password);
-                outFS.println(realname);
+                System.out.print("Name: ");
+                realname = sc.nextLine();
 
+            try(PrintWriter writer = new PrintWriter(new FileWriter("AdminInfo.txt", true))){
+                writer.print(username);
+                writer.print("|" + password);
+                writer.print("|" + realname);
+                System.out.println("Registration succeed");
+                writer.println("");
             }
-            catch (FileNotFoundException e) {
-                System.out.println("File Not Found");
-            }
-            finally {
-                if(outFS != null)
-                {
-                    outFS.close();
-                }
+            catch (IOException E){
+                System.out.println("Error writing to file: " + E.getMessage());
             }
         }
         else
@@ -66,22 +53,46 @@ public class Administrator extends User{
     }
 
     @Override
-    public void Login(){
-        System.out.println("You are logging in as a Administrator.");
+    public Administrator Login(){
+        System.out.println("You are signing in as a Administrator.");
 
-        String username;
-        String password;
+        String Enteredusername;
+        String Enteredpassword;
 
         Scanner sc = new Scanner(System.in);
         System.out.print("Username: ");
-        username = sc.nextLine();
+        Enteredusername = sc.nextLine();
 
         System.out.print("Password: ");
-        password = sc.nextLine();
+        Enteredpassword = sc.nextLine();
 
+        try (Scanner fileScanner = new Scanner(new File("AdminInfo.txt"))) {
+            while (fileScanner.hasNextLine())
+            {
+                String curLine = fileScanner.nextLine();
+                String[] curAdminInfo = curLine.split("\\|");
+                String curUserName = curAdminInfo[0];
+                String curPassword = curAdminInfo[1];
 
+                if(curUserName.equals(Enteredusername) && curPassword.equals(Enteredpassword)){
+                    System.out.println("Login succeed.");
+                    return new Administrator(Enteredusername);
+                }
+            }
 
+        } catch (IOException E) {
+            System.out.println("Error reading the file");
+        }
+
+        System.out.println("Username or Password incorrect.");
+        return null;
     }
 
+    public void setRealName(String realName) {
+        RealName = realName;
+    }
 
+    public String getRealName() {
+        return RealName;
+    }
 }

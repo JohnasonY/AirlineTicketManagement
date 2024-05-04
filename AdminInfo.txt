@@ -1,3 +1,2 @@
-test
-123
-test1
+#format: userName|password|realName
+Test 1|Ab123123|test1

@@ -34,7 +34,8 @@ public class WelcomePage {
             switch(userChoice){
                 case 1:
                     //Sign in
-
+                    SignInPage newSignIn = new SignInPage();
+                    newSignIn.SignIn();
                     break;
                 case 2:
                     //Sign up

@@ -1,11 +1,11 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class SignUpPage {
-    public void SignUp(){
+public class SignInPage {
+    public void SignIn(){
         System.out.println("*********************************************");
-        System.out.println("1. Sign up as a normal user");
-        System.out.println("2. Sign up as an administrator");
+        System.out.println("1. Sign in as a normal user");
+        System.out.println("2. Sign in as an administrator");
         System.out.println("3. Back to the Welcome page");
         System.out.println("*********************************************");
         int userChoice;
@@ -29,17 +29,17 @@ public class SignUpPage {
         switch(userChoice){
             case 1:
                 Client newClient = new Client();
-                newClient.Registration();
+                newClient = newClient.Login();
                 break;
             case 2:
                 Administrator newAdmin = new Administrator();
-                newAdmin.Registration();
+                newAdmin = newAdmin.Login();
                 break;
             case 3:
                 return;
             default:
 
         }
-    }
 
+    }
 }

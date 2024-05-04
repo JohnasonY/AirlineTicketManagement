@@ -8,9 +8,8 @@ public abstract class User
     public User(){
 
     }
-    public User(String userName, String password){
+    public User(String userName){
         this.userName = userName;
-        this.password = password;
     }
 
 
@@ -30,24 +29,9 @@ public abstract class User
         return password;
     }
 
-    public abstract void Registration() throws FileNotFoundException;
+    public abstract void Registration();
 
-    public void Login(){
-        Scanner sc = new Scanner(System.in);
-
-        System.out.print("Username: ");
-        String username;
-        sc.nextLine();
-
-        System.out.println(" ");
-
-        System.out.print("Password: ");
-        String password;
-        sc.nextLine();
-
-
-
-    }
+    public abstract User Login();
 
     public void Logout(){
 

@@ -7,7 +7,6 @@ public class Main
     {
         WelcomePage newWelcome = new WelcomePage();
         newWelcome.welcomepage();
-
     }
 
 
