@@ -34,9 +34,23 @@ public class Main
         switch(userChoice){
             case 1:
                 //log in
+
                 break;
             case 2:
                 //register
+                System.out.println("1. Register as a normal user");
+                System.out.println("2. Register as an administrator");
+                int registerOption;
+                registerOption = sc.nextInt();
+                if(registerOption == 1){
+
+                }
+                else if(registerOption == 2){
+                    Administrator newAdmin = new Administrator();
+                    newAdmin.Registration();
+                }
+
+
                 break;
             case 3:
                 System.out.println("Program is closing. Thank you for using! See you!");
@@ -45,6 +59,8 @@ public class Main
             default:
 
         }
+
+
 
     }
 
